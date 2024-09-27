@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import axios from "axios";
+import usersService from "../services/users"
 import styled from "styled-components";
 import Address from "./Address";
+
 
 const Wrapper = styled.div`
   .controller-container {
@@ -28,9 +29,22 @@ const Wrapper = styled.div`
     padding: 1rem;
     margin: 1rem;
     list-style: none;
-    background-color: violet;
+    background-color: #31572c;
     color: white;
     border-radius: 0.8rem;
+    text-align: center;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    h3 {
+      margin: 0.5rem;
+    }
+
+    p {
+      margin: 0;
+    }
   }
   
   @media (min-width: 1024px) {
@@ -67,12 +81,11 @@ const UsersList = () => {
   const [orderBy, setOrderBy] = useState("ASC");
 
   useEffect(() => {
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users")
-      .then((response) => {
-        setUsers(response.data);
-        setFilteredUsers(response.data);
-      });
+    const getUsersList = async () => {
+      const users = await usersService.getUsers();
+      setUsers(users)
+    }
+    void getUsersList()
   }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +141,7 @@ const UsersList = () => {
           </select>
           {sortBy && (
             <button className="order-button" onClick={handleToggle}>
-              {orderBy === "ASC" ? "Z>A" : "A>Z"}
+              {orderBy === "ASC" ? "Z > A" : "A > Z"}
             </button>
           )}
         </div>

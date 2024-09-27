@@ -1,22 +1,17 @@
-interface Address {
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
-}
+import { Address } from "../types"
 
-const Address = (address: Address) => {
+const AddressDetails = (address: Address) => {
   const { street, suite, city, zipcode } = address
   return (
     <>
       <p>
-        {street},
-        {suite},
-        {city},
-        {zipcode}
+        {street} 
+        , {suite}
+        , {city}
+        , {zipcode}
       </p>
     </>
   )
 }
 
-export default Address
+export default AddressDetails
