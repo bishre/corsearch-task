@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Address from "./Address";
 
 const Wrapper = styled.div`
   .controller-container {
@@ -49,6 +50,13 @@ interface User {
   name: string;
   email: string;
   phone: string;
+  website: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+  };
 }
 
 const UsersList = () => {
@@ -141,7 +149,9 @@ const UsersList = () => {
                 <h2>{user.name}</h2>
                 <h3>{user.email}</h3>
                 <p>{user.phone}</p>
+                <p>{user.website}</p>
               </div>
+              <Address {...user.address}/>
             </li>
           ))}
         </ul>
