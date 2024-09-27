@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import usersService from "../services/users"
+import usersService from "../services/users";
+import utils from "../utils";
 import styled from "styled-components";
 import Address from "./Address";
 
@@ -105,23 +106,7 @@ const UsersList = () => {
     setSortBy((prev) => e.target.value);
   };
 
-  const sortUsers = (users: User[], sortBy: string): User[] => {
-    const sortedUsers = [...users].sort((a, b) => {
-      if (sortBy === "name") {
-        return orderBy === "ASC"
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      } else if (sortBy === "email") {
-        return orderBy === "ASC"
-          ? a.email.localeCompare(b.email)
-          : b.email.localeCompare(a.name);
-      }
-      return 0;
-    });
-    return sortedUsers;
-  };
-
-  const sortedUsers = sortUsers(filteredUsers, sortBy);
+  const sortedUsers = utils.sortUsers(filteredUsers, sortBy, orderBy);
 
   const handleToggle = () => {
     setOrderBy(orderBy === "ASC" ? "DESC" : "ASC");
